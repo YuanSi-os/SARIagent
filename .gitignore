@@ -8,11 +8,7 @@ venv/
 .env
 .env.*
 
-# Generated outputs
-outputs/
-
 # Source/reference documents that are typically large or private
-data/
 ref/*.pdf
 ref/*.docx
 ref/*.pptx
