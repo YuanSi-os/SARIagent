@@ -1,0 +1,20 @@
+[
+  {
+    "path": "data/研究生教育管理规章制度汇编.md",
+    "source_url": "https://your-official-source.example/graduate-rules",
+    "source_name": "高研院研究生处",
+    "source_type": "markdown",
+    "extra_metadata": {
+      "collection": "graduate_regulations_2026"
+    }
+  },
+  {
+    "path": "data/研究生教育管理规章制度汇编20260417.docx",
+    "source_url": "https://your-official-source.example/graduate-rules-docx",
+    "source_name": "高研院研究生处",
+    "source_type": "docx",
+    "extra_metadata": {
+      "collection": "graduate_regulations_2026"
+    }
+  }
+]
