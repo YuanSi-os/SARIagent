@@ -20,29 +20,29 @@ SARIagent/
 |   +-- task03_adapter.py     # Adapter for insert_vectors(data)
 |   +-- source_manifest.example.json
 |   \-- README.md
-+-- data/                     # Local raw documents, not committed by default
-+-- outputs/                  # Local generated results, not committed by default
++-- data/                     # Versioned raw documents used by the pipeline
++-- outputs/                  # Versioned generated results
 +-- ref/                      # Reference documents and design materials
 +-- .gitignore
 +-- CONTRIBUTING.md
 \-- README.md
 ```
 
-## Why `data/` And `outputs/` Are Not On GitHub
+## Repository Data Policy
 
-`data/` and `outputs/` are intentionally ignored by `.gitignore`.
+This repository currently versions both `data/` and `outputs/` on GitHub.
 
-Reasons:
+Current intent:
 
-- `data/` usually contains original source documents, which may be private, copyrighted, or too large for routine collaboration.
-- `outputs/` contains generated artifacts. These files can usually be regenerated from the source pipeline and should not create noisy diffs in Git.
-- Keeping both directories local makes the repository smaller and reduces accidental leakage of internal materials.
+- `data/` stores the source files used by the pipeline
+- `outputs/` stores generated chunking results that the team wants to review and share
+- collaborators can clone the repository and immediately inspect both input and output artifacts
 
-If you later decide to publish part of the data, prefer one of these approaches:
+When adding new files to these directories, keep these rules in mind:
 
-1. Commit only small desensitized sample files for demonstration.
-2. Store large datasets outside GitHub and document the download process.
-3. Use Git LFS only when you are sure the team wants binary files versioned in Git.
+- avoid uploading files that contain private or unapproved content
+- avoid committing oversized binaries unless the team has agreed to keep them in Git
+- if files become too large for normal Git collaboration, consider moving them to Git LFS or external storage
 
 ## Environment
 
@@ -199,6 +199,109 @@ Then open a Pull Request on GitHub.
 
 Detailed collaboration rules are documented in `CONTRIBUTING.md`.
 
+## Daily Collaboration Workflow
+
+Because `main` is protected, team members should not work directly on `main`.
+
+Use this workflow for every task:
+
+1. Update local `main`
+
+```powershell
+git checkout main
+git pull
+```
+
+2. Create a task branch
+
+```powershell
+git checkout -b feat/your-task-name
+```
+
+3. Make changes locally
+
+4. Commit and push the branch
+
+```powershell
+git add .
+git commit -m "feat: describe your change"
+git push -u origin feat/your-task-name
+```
+
+5. Open a Pull Request on GitHub
+
+6. Merge into `main` only after review
+
+## Main Branch Protection
+
+The repository is intended to use a protected `main` branch.
+
+Expected team behavior:
+
+- do not push directly to `main`
+- do not develop new work on `main`
+- always open a Pull Request from a feature branch
+- keep Pull Requests focused and reviewable
+
+If direct pushes to `main` are rejected by GitHub, that is expected behavior after branch protection is enabled.
+
+## Recommended Team Rules
+
+For this repository, the default collaboration rules should be:
+
+- one task, one branch
+- one branch, one Pull Request
+- do not mix documentation changes, data updates, and code refactors in one large PR unless they are tightly related
+- explain any `data/` or `outputs/` changes in the PR description
+- if a PR changes generated outputs, state how those outputs were produced
+
+## Pull Request Template
+
+This repository includes a built-in Pull Request template at `.github/pull_request_template.md`.
+
+When creating a PR, contributors should clearly describe:
+
+- what changed
+- why it changed
+- what was tested
+- whether `data/` or `outputs/` were modified
+- whether follow-up work is still needed
+
+## Common Team Commands
+
+Check current branch and status:
+
+```powershell
+git branch
+git status
+```
+
+Sync local `main`:
+
+```powershell
+git checkout main
+git pull
+```
+
+Create a new work branch:
+
+```powershell
+git checkout -b feat/example-change
+```
+
+Push a branch for review:
+
+```powershell
+git push -u origin feat/example-change
+```
+
+Switch back after a branch is merged:
+
+```powershell
+git checkout main
+git pull
+```
+
 ## Recommended Branch Names
 
 - `feat/...` for new features
@@ -217,16 +320,17 @@ Examples:
 
 Before opening a Pull Request:
 
-- rebase or merge the latest `main`
+- sync with the latest `main`
 - make sure the branch is focused on one topic
 - include the reason for the change
 - describe what was tested
+- describe whether `data/` or `outputs/` changed
 
 For team use, reviewers should check:
 
 - whether the change matches the intended task
+- whether data and outputs were intentionally updated
 - whether data paths and outputs are handled safely
-- whether generated files are excluded unless intentionally committed
 - whether the change affects downstream Task 03 integration
 
 ## Suggested Next Steps
