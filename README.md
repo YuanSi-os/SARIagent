@@ -37,7 +37,32 @@ Current intent:
 - `data/` stores source files used by the pipeline, but these files are kept locally
 - `outputs/` stores generated chunking results, but these files are kept locally
 - collaborators should obtain the real data from the designated internal channel
-- for this project, members who need the source data should contact 肖老师
+- for this project, members who need the source data should contact Xiao Laoshi
+
+## 数据获取与本地开发说明
+
+真实语料和完整处理结果不通过 GitHub 分发。需要参与任务 04 开发、验证或复现处理结果的同学，请联系肖老师获取数据。
+
+获取数据后，请在本地仓库根目录下放置 `data/` 目录，并在本地运行脚本生成 `outputs/`。这两个目录已经写入 `.gitignore`，默认不会提交到 GitHub。
+
+本地目录建议保持如下结构：
+
+```text
+SARIagent/
++-- data/
+|   \-- graduate/
+|       \-- 研究生教育管理规章制度汇编20260417.docx
++-- outputs/
++-- task04_pipeline/
+\-- README.md
+```
+
+协作时请注意：
+
+- 不要把真实 `data/` 提交到 GitHub
+- 不要把完整 `outputs/` 提交到 GitHub
+- 如果 PR 使用了本地数据进行验证，请在 PR 描述中说明使用的数据来源和运行命令
+- 如果需要公开演示，请单独准备脱敏样例，不要使用真实内部文档
 
 After obtaining the data, place it under the repository root with this structure:
 
