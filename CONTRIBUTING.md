@@ -115,9 +115,13 @@ Default policy:
 
 - keep raw source materials in `data/` locally
 - keep generated outputs in `outputs/` locally
+- obtain real project data through the designated internal channel
+- for this project, members who need source data should contact 肖老师
 - only publish sample, desensitized, or explicitly approved files
 
-If the team decides to version real data, document:
+Do not force-add files under `data/` or `outputs/` unless the team has explicitly approved the specific files.
+
+If the team decides to version any real data in the future, document:
 
 - data ownership
 - update frequency
@@ -132,4 +136,3 @@ Recommended GitHub repository settings:
 - require Pull Request review before merge
 - block direct pushes to `main`
 - require branches to be up to date before merge
-

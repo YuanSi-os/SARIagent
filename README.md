@@ -20,8 +20,8 @@ SARIagent/
 |   +-- task03_adapter.py     # Adapter for insert_vectors(data)
 |   +-- source_manifest.example.json
 |   \-- README.md
-+-- data/                     # Versioned raw documents used by the pipeline
-+-- outputs/                  # Versioned generated results
++-- data/                     # Local raw documents, not committed to Git
++-- outputs/                  # Local generated results, not committed to Git
 +-- ref/                      # Reference documents and design materials
 +-- .gitignore
 +-- CONTRIBUTING.md
@@ -30,19 +30,34 @@ SARIagent/
 
 ## Repository Data Policy
 
-This repository currently versions both `data/` and `outputs/` on GitHub.
+This repository does not version real `data/` or full `outputs/` on GitHub.
 
 Current intent:
 
-- `data/` stores the source files used by the pipeline
-- `outputs/` stores generated chunking results that the team wants to review and share
-- collaborators can clone the repository and immediately inspect both input and output artifacts
+- `data/` stores source files used by the pipeline, but these files are kept locally
+- `outputs/` stores generated chunking results, but these files are kept locally
+- collaborators should obtain the real data from the designated internal channel
+- for this project, members who need the source data should contact 肖老师
 
-When adding new files to these directories, keep these rules in mind:
+After obtaining the data, place it under the repository root with this structure:
+
+```text
+SARIagent/
++-- data/
+|   \-- graduate/
+|       \-- your_document.docx
++-- outputs/
+\-- task04_pipeline/
+```
+
+These directories are ignored by Git to avoid accidentally uploading internal materials.
+
+When working with local data, keep these rules in mind:
 
 - avoid uploading files that contain private or unapproved content
-- avoid committing oversized binaries unless the team has agreed to keep them in Git
-- if files become too large for normal Git collaboration, consider moving them to Git LFS or external storage
+- do not force-add files under `data/` or `outputs/` unless the team has explicitly approved it
+- if a Pull Request depends on data changes, describe the local data source and generation command in the PR description
+- if sample data is needed for demonstration, use a separate desensitized example instead of real internal documents
 
 ## Environment
 
@@ -252,8 +267,8 @@ For this repository, the default collaboration rules should be:
 - one task, one branch
 - one branch, one Pull Request
 - do not mix documentation changes, data updates, and code refactors in one large PR unless they are tightly related
-- explain any `data/` or `outputs/` changes in the PR description
-- if a PR changes generated outputs, state how those outputs were produced
+- do not commit real `data/` or full `outputs/`
+- if a PR was validated with local data, state which local dataset was used and how outputs were produced
 
 ## Pull Request Template
 
@@ -264,7 +279,7 @@ When creating a PR, contributors should clearly describe:
 - what changed
 - why it changed
 - what was tested
-- whether `data/` or `outputs/` were modified
+- whether local `data/` or `outputs/` were used during validation
 - whether follow-up work is still needed
 
 ## Common Team Commands
@@ -324,13 +339,13 @@ Before opening a Pull Request:
 - make sure the branch is focused on one topic
 - include the reason for the change
 - describe what was tested
-- describe whether `data/` or `outputs/` changed
+- describe whether local `data/` or `outputs/` were used during validation
 
 For team use, reviewers should check:
 
 - whether the change matches the intended task
-- whether data and outputs were intentionally updated
-- whether data paths and outputs are handled safely
+- whether real data or generated outputs were accidentally committed
+- whether local data paths and output paths are documented clearly
 - whether the change affects downstream Task 03 integration
 
 ## Suggested Next Steps

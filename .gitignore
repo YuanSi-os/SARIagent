@@ -8,6 +8,10 @@ venv/
 .env
 .env.*
 
+# Local data and generated outputs
+data/
+outputs/
+
 # Source/reference documents that are typically large or private
 ref/*.pdf
 ref/*.docx
